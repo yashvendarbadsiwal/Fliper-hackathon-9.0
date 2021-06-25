@@ -1,32 +1,72 @@
-import React from "react";
-
-const Header = () => {
-  return (
-   
-    <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
-      <div className="container-fluid">
-       <a className="navbar-brand">Flipremail</a>
-       <button className="navbar-toggler" type="button" data-toggle="collaspse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-aria-expanded="false" aria-label="Toggle navigation">
-         <span className="navbar-toggler-icon"></span>
-       </button>
-       <div className="collapse navbar-collapse" id="navbarScroll">
-         <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-           <li className="nav-item">
-             <a className="nav-link ">Home</a>
-           </li>
-           <li className="nav-item">
-             <a className="nav-link">History</a>
-           </li>
-           <li className="nav-item">
-             <a className="nav-link">Draft new email</a>
-           </li>
-         </ul>
-       </div>
-      </div>
-    </nav>
-
-  
-  );
-};
-
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import {
+  Collapse,
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  NavItem,
+} from "reactstrap";
+// import "./style/style.css";
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isNavOpen: false,
+    };
+    this.togglerNav = this.togglerNav.bind(this);
+  }
+  togglerNav = () => {
+    this.setState({
+      isNavOpen: !this.state.isNavOpen,
+    });
+  };
+  render() {
+    return (
+      <Navbar expand="md">
+        <div className="container">
+          <NavbarToggler onClick={this.togglerNav} />
+          <NavbarBrand className="ml-auto " href="/">
+            <h3>COVID-19</h3>
+          </NavbarBrand>
+          <Collapse
+            isOpen={this.state.isNavOpen}
+            navbar
+            className="text-left ml-4 ml-md-1"
+          >
+            <Nav navbar>
+              <NavItem>
+                <NavLink className="nav-link" to="/home">
+                  <span className="fa fa-home fa-lg"></span> Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/contactus">
+                  <span className="fa fa-address-card fa-lg"></span> Contact Us
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/Hospital">
+                  <span className="fa fa-bed fa-lg"></span> Hospital and Beds
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/GraphComponent">
+                  <span className="fa fa-line-chart fa-lg"></span>{" "}
+                  Graph(Filters)
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/DrowGraph">
+                  <span className="fa fa-map-o fa-lg"></span>Graph View
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </div>
+      </Navbar>
+    );
+  }
+}
 export default Header;
