@@ -1,6 +1,5 @@
 import { BrowserRouter, NavLink } from "react-router-dom";
 import { Provider } from "react-redux";
-import logo from "./logo.svg";
 import "./App.scss";
 
 import MainComponent from "./Components/MainComponent";
