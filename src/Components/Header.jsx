@@ -48,7 +48,7 @@ class Header extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/temp1">
+                <NavLink className="nav-link" to="/email">
                   <i className="fas fa-envelope-open"></i> <span className="text-dark">Compose email</span> 
                 </NavLink>
               </NavItem>
