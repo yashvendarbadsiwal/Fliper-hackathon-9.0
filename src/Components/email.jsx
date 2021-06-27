@@ -7,7 +7,7 @@ const email = () =>{
               <div className="container py-5  w-100 mt-1">
                   <div className="card shadow-2-strong">
                       <div className="row justify-content-center h-100">
-                       <div className="col-8 col-lg-9 col-xl-5 mt-3 p-3">
+                       <div className="col-8 col-lg-9 col-xl-5 mt-3 ">
                        <div> 
          <div className="container">
              <div>

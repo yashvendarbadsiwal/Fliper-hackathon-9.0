@@ -24,10 +24,10 @@ class Header extends Component {
   };
   render() {
     return (
-      <Navbar color="light" light expand="md">
+      <Navbar color="dark" light expand="md">
         <div className="container">
          <NavbarBrand className="ml-auto " href="/">
-            <h3 className="text-primary">FliprEmail</h3>
+            <h3 className="text-light">FliprEmail</h3>
           </NavbarBrand>
           <NavbarToggler onClick={this.togglerNav} />
           
@@ -40,16 +40,16 @@ class Header extends Component {
             <Nav classname="mr-auto" navbar>
               <NavItem>
                 <NavLink className="nav-link" to="/Home">
-                  <i className="fa fa-home"></i><span className="text-dark">Home</span></NavLink>
+                  <i className="fa fa-home"></i><span className="text-light">Home</span></NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link" to="/History">
-                  <i className="fas fa-history"></i> <span className="text-dark">History</span>
+                  <i className="fas fa-history"></i> <span className="text-light">History</span>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link" to="/email">
-                  <i className="fas fa-envelope-open"></i> <span className="text-dark">Compose email</span> 
+                  <i className="fas fa-envelope-open"></i> <span className="text-light">Compose email</span> 
                 </NavLink>
               </NavItem>
             </Nav>
