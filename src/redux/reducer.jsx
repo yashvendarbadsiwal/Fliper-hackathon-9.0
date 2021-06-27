@@ -1,6 +1,7 @@
-export const initialState ={
-
-}
-export const Reducer =(state=initialState,action)=>{
-    return state;
-}
+export const initialState = {
+  userid: "",
+  username: "",
+};
+export const Reducer = (state = initialState, action) => {
+  return state;
+};
