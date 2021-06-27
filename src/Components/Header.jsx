@@ -8,7 +8,7 @@ import {
   NavbarToggler,
   NavItem,
 } from "reactstrap";
-// import "./style/style.css";
+import "../style/style.css";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -24,42 +24,35 @@ class Header extends Component {
   };
   render() {
     return (
-      <Navbar expand="md">
+      <Navbar color="dark" light expand="md">
         <div className="container">
-          <NavbarToggler onClick={this.togglerNav} />
           <NavbarBrand className="ml-auto " href="/">
-            <h3>COVID-19</h3>
+            <h3 className="text-light">FliprEmail</h3>
           </NavbarBrand>
+          <NavbarToggler onClick={this.togglerNav} />
+
           <Collapse
             isOpen={this.state.isNavOpen}
             navbar
-            className="text-left ml-4 ml-md-1"
+            className="text-left ml-4 ml-md-1 "
           >
-            <Nav navbar>
+            <Nav classname="mr-auto" navbar>
               <NavItem>
-                <NavLink className="nav-link" to="/home">
-                  <span className="fa fa-home fa-lg"></span> Home
+                <NavLink className="nav-link" to="/Home">
+                  <i className="fa fa-home"></i>
+                  <span className="text-light">Home</span>
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/contactus">
-                  <span className="fa fa-address-card fa-lg"></span> Contact Us
+                <NavLink className="nav-link" to="/History">
+                  <i className="fas fa-history"></i>{" "}
+                  <span className="text-light">History</span>
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/Hospital">
-                  <span className="fa fa-bed fa-lg"></span> Hospital and Beds
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className="nav-link" to="/GraphComponent">
-                  <span className="fa fa-line-chart fa-lg"></span>{" "}
-                  Graph(Filters)
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className="nav-link" to="/DrowGraph">
-                  <span className="fa fa-map-o fa-lg"></span>Graph View
+                <NavLink className="nav-link" to="/email">
+                  <i className="fas fa-envelope-open"></i>{" "}
+                  <span className="text-light">Compose email</span>
                 </NavLink>
               </NavItem>
             </Nav>
