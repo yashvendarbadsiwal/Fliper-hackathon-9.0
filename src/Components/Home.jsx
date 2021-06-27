@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../style/inboxmail.css";
 import { Button } from "reactstrap";
 const mails = new Array(15).fill({
   to: "yashvendar@gmail.com",
@@ -10,7 +11,8 @@ const mails = new Array(15).fill({
 });
 const renderMail = (mail) => {
   return (
-    <div className="shadow mb-3 mt-3 pb-2 pt-2 mail-box">
+    <div className="inboxbody">
+      <div className="shadow mb-3 mt-3 pb-2 pt-2 mail-box inboxbody">
       <div className="row">
         <div className="col-12 col-sm-8 col-md-6">
           <h5 className="ml-4">{mail.subject}</h5>
@@ -29,6 +31,7 @@ const renderMail = (mail) => {
         </Button>
         <Button color="danger pull-left">Delete</Button>
       </div>
+    </div>
     </div>
   );
 };
