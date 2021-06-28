@@ -1,58 +1,228 @@
-import React from "react";
+import React, { Component } from "react";
+import { Form, FormGroup, Input, Label, Row } from "reactstrap";
+class email extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mail: {
+        subject: "",
+        to: "",
+        from: "",
+        cc: "",
+        bcc: "",
+        isText: true,
+        text: "",
+        html: "",
+        isSchedule: true,
+        schedule: {
+          date: "*",
+          dayOfWeek: "*",
+          month: "*",
+          year: "*",
+          hour: "*",
+          second: "*",
+          minute: "*",
+        },
+      },
+    };
+  }
+  render() {
+    return (
+      <div
+        className="container inboxbody"
+        style={{ minHeight: "80vh", width: "60%" }}
+      >
+        <Form>
+          <FormGroup row>
+            <Label>
+              From
+              <Input
+                type="email"
+                name="from"
+                onChange={(e) => (this.state.mail.form = e.target.value)}
+              />
+            </Label>
+          </FormGroup>
+          <FormGroup row>
+            <Label>
+              Subject
+              <Input
+                type="text"
+                name="subject"
+                onChange={(e) => (this.state.mail.subject = e.target.value)}
+              />
+            </Label>
+          </FormGroup>
 
-const email = () =>{
-    return(
-        <div className="for_email">
-          <div className="gradient-custom shadow-2-strong">
-              <div className="container py-5  w-100 mt-1">
-                  <div className="card shadow-2-strong">
-                      <div className="row justify-content-center h-100">
-                       <div className="col-8 col-lg-9 col-xl-5 mt-3 ">
-                       <div> 
-         <div className="container">
-             <div>
-                 <h3>Compose Email</h3>
-             </div>
-          <form>
-               <div className="row pt-5 mx-auto">
-                   
-                   <div className="col-8 form-group pt-2 mx-auto">
-                       <input type="email" className="form-control" placeholder="From_Email_ID" name="From_email" />
-                   </div>
-                   <div className="col-8 form-group pt-2 mx-auto">
-                       <input type="text" className="form-control" placeholder="To_Email_ID" name="email" />
-                   </div>
-                   <div className="col-8 form-group pt-2 mx-auto">
-                       <input type="email" className="form-control" placeholder="bcc" name="bcc" />
-                   </div>
-                   <div className="col-8 form-group pt-2 mx-auto">
-                       <input type="email" className="form-control" placeholder="cc" name="cc" />
-                   </div>
-                   <div className="col-8 form-group pt-2 mx-auto">
-                       <input type="text" className="form-control" placeholder="subject" name="subject" />
-                   </div>
-                   <div className="col-8 form-group pt-2 mx-auto">
-                       <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" name="message" ></textarea>
-                   </div>
-                   <div className="col-8 pt-3 mx-auto">
-                       <input type="submit" className="btn btn-primary" value="send"></input>
-                   </div>
-                   
-               </div>
-          </form>
-        </div>
-     </div>
+          <FormGroup row>
+            <Label>
+              To
+              <Input
+                type="text"
+                name="to"
+                value={this.state.mail.to}
+                onChange={(e) => this.setState({ "mail.to": e.target.value })}
+              />
+            </Label>
+          </FormGroup>
 
-                       </div>
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-
-
-        </div>
-    )
+          <FormGroup row>
+            <Label>
+              CC
+              <Input
+                type="text"
+                name="cc"
+                value={this.state.mail.cc}
+                onChange={(e) => this.setState({ "mail.cc": e.target.value })}
+              />
+            </Label>
+          </FormGroup>
+          <FormGroup row>
+            <Label>
+              BCC
+              <Input
+                type="text"
+                name="bcc"
+                value={this.state.mail.bcc}
+                onChange={(e) => this.setState({ "mail.bcc": e.target.value })}
+              />
+            </Label>
+          </FormGroup>
+          {/* <FormGroup>
+            <Label>
+              <Input
+                type="checkbox"
+                value={this.state.mail.isText}
+                onChange={(e) =>
+                  this.setState({ "mail.isText": e.target.value })
+                }
+              />
+              Response is Text
+            </Label>
+          </FormGroup> */}
+          {this.state.mail.isText && (
+            <FormGroup>
+              <Label>
+                Mail Text
+                <Input
+                  type="textarea"
+                  value={this.state.mail.text}
+                  onChange={(e) =>
+                    this.setState({ "mail.text": e.target.value })
+                  }
+                />
+              </Label>
+            </FormGroup>
+          )}
+          {!this.state.mail.isText && (
+            <FormGroup>
+              <Label>
+                Mail HTML
+                <Input
+                  type="textarea"
+                  value={this.state.mail.html}
+                  onChange={(e) =>
+                    this.setState({ "mail.html": e.target.value })
+                  }
+                />
+              </Label>
+            </FormGroup>
+          )}
+          {/* <FormGroup>
+            <Label>
+              <Input
+                type="checkbox"
+                value={this.state.mail.isSchedule}
+                onChange={(e) =>
+                  this.setState({ "mail.isSchedule": e.target.value })
+                }
+              />
+              Want Scheduling
+            </Label>
+          </FormGroup>
+          {this.state.mail.isSchedule} */}
+          <Row>Scheduling</Row>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.date = e.target.value)
+                }
+              />
+              Date
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.dayOfWeek = e.target.value)
+                }
+              />
+              DayOfWeek
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.month = e.target.value)
+                }
+              />
+              Date
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.date = e.target.value)
+                }
+              />
+              Date
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.date = e.target.value)
+                }
+              />
+              Date
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.date = e.target.value)
+                }
+              />
+              Date
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
+                type="number"
+                onChange={(e) =>
+                  (this.state.mail.schedule.date = e.target.value)
+                }
+              />
+              Date
+            </Label>
+          </FormGroup>
+        </Form>
+      </div>
+    );
+  }
 }
 
 export default email;

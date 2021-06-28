@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../style/inboxmail.css";
 import axios from "axios";
 import { Button } from "reactstrap";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 const renderMail = (mail, key) => {
   return (
@@ -49,32 +51,56 @@ class Home extends Component {
     super(props);
     this.state = {
       mails: [],
+      redirect: false,
     };
   }
   componentDidMount() {
-    // fetch("http://localhost:4000/mail", {
-    //   method: "GET",
-    //   headers: {
-    //     Authorization:
-    //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ3NmNhZjZlMWU5YjFjNTRkZmU3NjgiLCJpYXQiOjE2MjQ3Njg4ODksImV4cCI6MTYyNTEyODg4OX0.RkMJ1sJwv4SflmQZJ8ruadbLZDPJwCto98SFYOpzQUM",
-    //   },
-    // })
-    axios
-      .get("http://localhost:4000/mail", {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4MjlmN2RjODU1YjI5YTAyY2FjZWYiLCJpYXQiOjE2MjQ3Nzk0MTgsImV4cCI6MTYyNTEzOTQxOH0.kIpw6H6_bPPS6xRp-xq3l_tPU266Hiuv6YBSaIr9wtI",
-        },
-      })
-      // .then((res) => res.json)
-      .then((res) => {
-        this.setState({ mails: res.data });
-        console.log(res.data);
-      });
+    return new Promise((resolve, fail) => {
+      if (
+        !localStorage.getItem("token") ||
+        localStorage.getItem("timeout") < new Date().getTime()
+      ) {
+        if (localStorage.getItem("token")) {
+          localStorage.removeItem("token");
+        }
+        this.setState({ redirect: true });
+        fail("Login again");
+      } else {
+        resolve();
+      }
+    }).then((resolved) => {
+      axios
+        .get("http://localhost:4000/mail", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        // .then((res) => res.json)
+        .then(
+          (res) => {
+            this.setState({ mails: res.data });
+            console.log(res.data);
+          },
+          (err) => {}
+        );
+    });
   }
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
+    if (this.state.mails.length == 0) {
+      return (
+        <div
+          className="container"
+          style={{ minHeight: "80vh", color: "white" }}
+        >
+          Nothing there, Add Schedule to show
+        </div>
+      );
+    }
     return (
-      <div className="container">
+      <div className="container" style={{ minHeight: "80vh" }}>
         {" "}
         {this.state.mails.map((mail, key) => renderMail(mail, key))}{" "}
       </div>

@@ -1,118 +1,101 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { Form, FormGroup, Input, Label, Col, Row } from "reactstrap";
+import axios from "axios";
 import "../style/register.css";
 
-const register = (props) => {
- return(
-     <div className="register">
-       <section className="gradient-custom shadow-2-strong ">
-<div className="forbag">         
-  <div className="container py-5 h-100 ">
-    <div className="row justify-content-center align-items-center h-100">
-      <div className="col-12 col-lg-9 col-xl-7">
-        <div className="card shadow-2-strong card-registration forb">
-          <div className="card-body p-4 p-md-5">
-            <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-            <form>
+class register extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+    };
+    this.submitForm = this.submitForm.bind(this);
+  }
+  submitForm = (e) => {
+    e.preventDefault();
 
-              <div className="row">
-                <div className="col-md-6 mb-4">
+    console.log(e.target[0].value);
+    const payload = {
+      username: e.target[0].value,
+      password: e.target[1].value,
+    };
 
-                  <div className="form-outline">
-                    <input type="text" id="firstName" name="fnm" className="form-control form-control-sm" />
-                    <label className="form-label" for="firstName">First Name</label>
+    console.log(payload, e.target[1].value);
+    return axios.post("http://localhost:4000/users/signup", payload).then(
+      (data) => {
+        console.log(data);
+        this.setState({ redirect: true });
+      },
+      (err) => {
+        console.log(err);
+        alert(JSON.stringify(err));
+      }
+    );
+  };
+  render() {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
+    return (
+      <div className="register">
+        <section className="gradient-custom shadow-2-strong ">
+          <div className="forbag">
+            <div className="container py-5 h-100 ">
+              <div className="row justify-content-center align-items-center h-100">
+                <div className="col-12 col-lg-9 col-xl-7">
+                  <div className="card shadow-2-strong card-registration forb">
+                    <div className="card-body p-4 p-md-5">
+                      <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">
+                        Registration Form
+                      </h3>
+                      <Form
+                        action=""
+                        className="bg-white  rounded-5 shadow-5-strong p-5"
+                        onSubmit={(e) => this.submitForm(e)}
+                      >
+                        <FormGroup row className="mb-3">
+                          <Input
+                            type="text"
+                            name="username"
+                            id="email_login"
+                            placeholder="example@example.com"
+                            // onChange={(e) => console.log(e)}
+                          />
+                          <Label for="email_login">Username</Label>
+                        </FormGroup>
+                        <FormGroup row className="mb-3">
+                          <Input
+                            type="password"
+                            name="password"
+                            id="password_login"
+                            placeholder="********"
+                          />
+                          <Label for="password_login">Password</Label>
+                        </FormGroup>
+
+                        <FormGroup row>
+                          <Col md={{ size: 10 }}>
+                            <button
+                              type="submit"
+                              className="btn btn-primary btn-block"
+                            >
+                              SignUp
+                            </button>
+                          </Col>
+                        </FormGroup>
+                        {/* <!-- Submit button --> */}
+                      </Form>
+                    </div>
                   </div>
-
-                </div>
-                <div className="col-md-6 mb-4">
-
-                  <div className="form-outline">
-                    <input type="text" id="lastName" name="lnm" className="form-control form-control-sm" />
-                    <label className="form-label" for="lastName">Last Name</label>
-                  </div>
-
-                </div>
-              </div>
-
-              <div className="row">
-                
-                <div className="col-md-6 mb-4">
-
-                  <h6 className="mb-2 pb-1">Gender: </h6>
-
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="genderfemale"
-                      id="femaleGender"
-                      value="option1"
-                      checked
-                    />
-                    <label className="form-check-label" for="femaleGender">Female</label>
-                  </div>
-
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="gendermale"
-                      id="maleGender"
-                      value="option2"
-                      
-                    />
-                    <label className="form-check-label" for="maleGender">Male</label>
-                  </div>
-
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="genderother"
-                      id="otherGender"
-                      value="option3"
-                    />
-                    <label className="form-check-label" for="otherGender">Other</label>
-                  </div>
-
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-6 mb-4 pb-2">
-
-                  <div className="form-outline">
-                    <input type="email" id="emailAddress" className="form-control form-control-sm" name="Email" />
-                    <label className="form-label" for="emailAddress">Email</label>
-                  </div>
-
-                </div>
-                <div className="col-md-6 mb-4 pb-2">
-
-                  <div className="form-outline">
-                    <input type="tel" id="phoneNumber" className="form-control form-control-sm" name="Password" />
-                    <label className="form-label" for="password">Password</label>
-                  </div>
-
                 </div>
               </div>
-            
-              <div className="mt-4 pt-2">
-                <input className="btn btn-primary btn-lg" type="submit" value="Submit" />
-              </div>
-
-            </form>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
-  </div>
- </div> 
-</section>
-
-     </div>
- )    
-
+    );
+  }
 }
 
 export default register;
